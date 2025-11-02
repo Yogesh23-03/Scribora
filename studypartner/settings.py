@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'scribora.wsgi.application'
+WSGI_APPLICATION = 'studypartner.wsgi.application'
 
 
 # Database
