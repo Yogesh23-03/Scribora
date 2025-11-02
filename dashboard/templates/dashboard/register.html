@@ -1,0 +1,133 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="register-bg">
+  <style>
+    body {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #222f3e;
+}
+    .register-bg {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 0;
+    }
+    .register-glass-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(9, 132, 227, 0.15);
+      padding: 3rem 2.5rem 2.5rem 2.5rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+    .register-icon {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #0984e3 60%, #74b9ff 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px 0 rgba(9, 132, 227, 0.10);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .register-icon i {
+      color: #fff;
+      font-size: 2.5rem;
+    }
+    legend {
+      color: #0984e3;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.5px;
+      background: transparent;
+      margin-bottom: 1.5rem;
+    }
+    .btn-outline-info, .btn-primary {
+      background: linear-gradient(90deg, #0984e3 60%, #74b9ff 100%);
+      color: #fff !important;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      padding: 0.7rem 2.2rem;
+      box-shadow: 0 2px 8px 0 rgba(9, 132, 227, 0.10);
+      transition: background 0.2s, box-shadow 0.2s;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .btn-outline-info:hover, .btn-primary:hover {
+      background: linear-gradient(90deg, #74b9ff 0%, #0984e3 100%);
+      color: #fff !important;
+      box-shadow: 0 4px 16px 0 rgba(9, 132, 227, 0.18);
+    }
+    .border-top {
+      border-top: 1.5px solid #0984e3 !important;
+      margin-top: 2rem;
+      padding-top: 1.2rem !important;
+    }
+    .text-muted {
+      color: #636e72 !important;
+      font-size: 1rem;
+    }
+    .ml-2 {
+      margin-left: 0.5rem;
+    }
+    .register-glass-card input, .register-glass-card select {
+      border-radius: 8px !important;
+      border: 1px solid #dfe6e9 !important;
+      background: rgba(255,255,255,0.95) !important;
+      font-size: 1rem !important;
+      color: #222f3e !important;
+      margin-bottom: 1rem;
+      padding: 0.7rem 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    @media (max-width: 600px) {
+      .register-glass-card {
+        padding: 1.5rem 0.5rem;
+        max-width: 98vw;
+      }
+      .register-icon {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  </style>
+  <div class="register-glass-card">
+    <div class="register-icon">
+      <i class="fa fa-user-plus"></i>
+    </div>
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Join Today</legend>
+        <!-- Example input fields, replace/add as needed -->
+         {{form|crispy}}
+        
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">
+          <i class="fa fa-user-plus mr-2"></i>Sign Up
+        </button>
+      </div>
+    </form>
+    <div class="border-top pt-3">
+      <small class="text-muted">Already have an account?
+        <a class="ml-2" href="{% url 'login' %}"><i class="fa fa-sign-in-alt"></i> Sign In</a>
+      </small>
+    </div>
+  </div>
+</div>
+{% endblock content %}

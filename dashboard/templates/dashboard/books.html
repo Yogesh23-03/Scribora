@@ -1,0 +1,141 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+
+
+.books-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.books-glass-form {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 4px 16px 0 rgba(9, 132, 227, 0.10);
+  max-width: 500px;
+  margin: 0 auto 2rem auto;
+  padding: 2rem 1.5rem;
+}
+.btn-danger {
+  background: linear-gradient(90deg, #e17055 60%, #fdcb6e 100%);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.5rem 2rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(225, 112, 85, 0.10);
+}
+.btn-danger:hover {
+  background: linear-gradient(90deg, #fdcb6e 0%, #e17055 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px 0 rgba(225, 112, 85, 0.18);
+}
+.books-glass-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(9, 132, 227, 0.10);
+  transition: box-shadow 0.2s, transform 0.2s;
+  margin: 0 auto 2rem auto;
+  max-width: 900px;
+  padding: 1.5rem 1rem;
+}
+.books-glass-card:hover {
+  box-shadow: 0 12px 32px 0 rgba(9, 132, 227, 0.18);
+  transform: translateY(-4px) scale(1.02);
+}
+.books-card-header {
+  background: linear-gradient(90deg, #0984e3 60%, #74b9ff 100%);
+  color: #fff;
+  border-radius: 16px 16px 0 0;
+  padding: 1rem 1.5rem;
+  margin-bottom: 0;
+}
+.books-thumbnail {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px 0 rgba(9, 132, 227, 0.10);
+  max-width: 100%;
+  height: auto;
+  background: #e0e7ff;
+}
+.books-title {
+  color: #0984e3;
+  font-family: 'Barlow', 'Rubik', 'Quicksand', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.books-subtitle {
+  color: #636e72;
+  font-size: 1.1rem;
+  font-family: 'Quicksand', 'Rubik', sans-serif;
+  margin-bottom: 0.5rem;
+}
+.books-description {
+  color: #222f3e;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.books-meta {
+  color: #0984e3;
+  font-size: 1rem;
+  font-family: 'Barlow', 'Rubik', 'Quicksand', sans-serif;
+  margin-bottom: 0.3rem;
+}
+@media (max-width: 768px) {
+  .books-glass-card, .books-glass-form {
+    padding: 1rem 0.5rem;
+  }
+  .books-card-header {
+    padding: 1rem;
+  }
+}
+</style>
+
+<div class="books-bg">
+  <section class="text-center container">
+    <h2 class="books-title mb-2">Search books and browse your favorite</h2>
+    <p class="books-subtitle mb-4">Just enter the search query to obtain the results</p>
+    <form class="books-glass-form mb-4" action="" method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+      <input class="btn btn-danger" type="submit" value="Submit">
+    </form>
+
+    {% for book in books %}
+    <a href="{{book.preview}}" target="_blank" style="text-decoration:none;">
+      <div class="books-glass-card">
+        <div class="row align-items-center">
+          <div class="col-md-3 text-center">
+            <img class="books-thumbnail" src="{{book.thumbnail}}" alt="Book Cover">
+          </div>
+          <div class="col-md-9 text-left">
+            <h3 class="books-title">{{book.title}}</h3>
+            {% if book.subtitle %}
+            <div class="books-subtitle"><u>{{book.subtitle}}</u></div>
+            {% endif %}
+            <div class="books-description">{{book.description|slice:400}}....</div>
+            {% if book.categories %}
+            <div class="books-meta"><b>Category:</b>
+                {% for category in book.categories %}
+                {{book.categories}}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="books-meta"><b>Pages:</b>{{book.pages}}</div>
+            {% if book.rating %}
+            <div class="books-meta"><b>Rating:</b>{{book.rating}}</div>
+            {% endif %}
+            
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </section>
+</div>
+{% endblock content %}

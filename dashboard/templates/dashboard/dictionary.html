@@ -1,0 +1,139 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+.dictionary-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.dictionary-glass-form {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 4px 16px 0 rgba(9, 132, 227, 0.10);
+  max-width: 500px;
+  margin: 0 auto 2rem auto;
+  padding: 2rem 1.5rem;
+}
+.btn-danger {
+  background: linear-gradient(90deg, #e17055 60%, #fdcb6e 100%);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.5rem 2rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(225, 112, 85, 0.10);
+}
+.btn-danger:hover {
+  background: linear-gradient(90deg, #fdcb6e 0%, #e17055 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px 0 rgba(225, 112, 85, 0.18);
+}
+.dictionary-glass-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(9, 132, 227, 0.10);
+  transition: box-shadow 0.2s, transform 0.2s;
+  margin: 0 auto 2rem auto;
+  max-width: 700px;
+  padding: 2rem 1.5rem;
+  text-align: left;
+}
+.dictionary-glass-card:hover {
+  box-shadow: 0 12px 32px 0 rgba(9, 132, 227, 0.18);
+  transform: translateY(-4px) scale(1.02);
+}
+.dictionary-header {
+  color: #0984e3;
+  font-family: 'Barlow', 'Rubik', 'Quicksand', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.dictionary-phonetics {
+  color: #636e72;
+  font-size: 1.1rem;
+  font-family: 'Quicksand', 'Rubik', sans-serif;
+  margin-bottom: 0.5rem;
+}
+.dictionary-audio {
+  margin-bottom: 1rem;
+}
+.fa-volume-up {
+  color: #0984e3;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: color 0.2s;
+}
+.fa-volume-up:hover {
+  color: #e17055;
+}
+.dictionary-definition, .dictionary-example {
+  color: #222f3e;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.dictionary-synonyms {
+  color: #0984e3;
+  font-size: 1rem;
+  font-family: 'Barlow', 'Rubik', 'Quicksand', sans-serif;
+  margin-bottom: 0.3rem;
+}
+.dictionary-error {
+  color: #e17055;
+  font-weight: 600;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+@media (max-width: 768px) {
+  .dictionary-glass-card, .dictionary-glass-form {
+    padding: 1rem 0.5rem;
+  }
+}
+</style>
+
+<div class="dictionary-bg">
+  <section class="text-center container">
+    <h2 class="dictionary-header mb-2">Student Dictionary</h2>
+    <p class="dictionary-phonetics mb-4">Enter any word to get the phonetics, definition and an example for the word</p>
+    <form class="dictionary-glass-form mb-4" action="" method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+      <input class="btn btn-danger" type="submit" value="Submit">
+    </form>
+    <div class="dictionary-glass-card">
+      <div class="mb-3">
+        {% if input %}
+        <h2 class="dictionary-header">{{input}}</h2>
+        {% endif %}
+        {% if phonetics %}
+        <h6 class="dictionary-phonetics">{{phonetics}}</h6>
+        {% endif %}
+        <div class="dictionary-audio">
+          <audio id="player" src="{{audio}}"></audio>
+          <i class='fa fa-volume-up fa-2x' onclick="document.getElementById('player').play()"></i>
+        </div>
+      </div>
+      <hr class="p-0 m-0">
+      <div class="text-left mt-3">
+        <div class="dictionary-definition"><b>Definition:</b> {{definition}}</div>
+        <div class="dictionary-example"><b>Example:</b> {{example}}</div>
+        {% if synonyms %}
+        <div class="dictionary-synonyms mt-2"><b>Synonyms:
+            {% for synonym in synonyms %}
+            {{synonym}}
+            {% endfor %}
+        </b>
+        </div>
+        {% endif %}
+      </div>
+      <hr>
+    </div>
+    <div class="dictionary-error">Sorry, API request limit exceeded</div>
+  </section>
+</div>
+{% endblock content %}

@@ -1,0 +1,75 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+   body {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #222f3e;
+}
+.notes-detail-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.notes-detail-glass {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(9, 132, 227, 0.10);
+  padding: 2.5rem 2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.notes-detail-glass h2 {
+  color: #0984e3;
+  font-family: 'Barlow', 'Rubik', 'Quicksand', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+.notes-detail-glass .description {
+  color: #636e72;
+  font-size: 1.15rem;
+  font-family: 'Quicksand', 'Rubik', sans-serif;
+  background: rgba(152, 214, 230, 0.12);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 2px 8px 0 rgba(9, 132, 227, 0.05);
+}
+.notes-detail-glass hr {
+  border-top: 2px solid #0984e3;
+  opacity: 0.15;
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .notes-detail-glass {
+    padding: 1rem 0.5rem;
+  }
+  .notes-detail-glass .description {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+</style>
+<section class="notes-detail-bg">
+  <div class="container">
+    <div class="notes-detail-glass">
+      <div class="m-3">
+        <h2>{{notes.title}}</h2>
+      </div>
+      <hr class="p-0 m-0">
+      <p class="description m-0">
+        {{notes.description|linebreaks}}
+      </p>
+      <hr>
+    </div>
+  </div>
+</section>
+{% endblock content %}

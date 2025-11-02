@@ -1,0 +1,92 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<div class="logout-bg">
+  <style>
+    .logout-bg {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 0;
+    }
+    .logout-glass-card {
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(9, 132, 227, 0.15);
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+    .logout-icon {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #e17055 60%, #fdcb6e 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px 0 rgba(225, 112, 85, 0.10);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .logout-icon i {
+      color: #fff;
+      font-size: 2.5rem;
+    }
+    .logout-glass-card h2 {
+      color: #e17055;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
+      font-family: 'Barlow', 'Rubik', 'Quicksand', sans-serif;
+    }
+    .btn-danger {
+      background: linear-gradient(90deg, #e17055 60%, #fdcb6e 100%);
+      border: none;
+      color: #fff !important;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 0.7rem 2.2rem;
+      box-shadow: 0 2px 8px 0 rgba(225, 112, 85, 0.10);
+      transition: background 0.2s, box-shadow 0.2s;
+      margin-top: 1rem;
+    }
+    .btn-danger:hover {
+      background: linear-gradient(90deg, #fdcb6e 0%, #e17055 100%);
+      color: #fff !important;
+      box-shadow: 0 4px 16px 0 rgba(225, 112, 85, 0.18);
+    }
+    .text-muted {
+      color: #636e72 !important;
+      font-size: 1rem;
+      display: block;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .logout-glass-card {
+        padding: 1.5rem 0.5rem;
+        max-width: 98vw;
+      }
+      .logout-icon {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  </style>
+  <div class="logout-glass-card">
+    <div class="logout-icon">
+      <i class="fa fa-sign-out-alt"></i>
+    </div>
+    <h2>You are logged Out</h2>
+    <small class="text-muted">
+      <a class="btn btn-danger" href="{% url 'login' %}"><i class="fa fa-sign-in-alt mr-2"></i>Log In Again</a>
+    </small>
+  </div>
+</div>
+{% endblock content %}

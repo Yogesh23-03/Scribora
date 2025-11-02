@@ -1,0 +1,109 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+.wikipedia-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.wikipedia-glass-form {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 4px 16px 0 rgba(9, 132, 227, 0.10);
+  max-width: 500px;
+  margin: 0 auto 2rem auto;
+  padding: 2rem 1.5rem;
+}
+.btn-danger {
+  background: linear-gradient(90deg, #e17055 60%, #fdcb6e 100%);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.5rem 2rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(225, 112, 85, 0.10);
+}
+.btn-danger:hover {
+  background: linear-gradient(90deg, #fdcb6e 0%, #e17055 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px 0 rgba(225, 112, 85, 0.18);
+}
+.wikipedia-glass-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(9, 132, 227, 0.10);
+  transition: box-shadow 0.2s, transform 0.2s;
+  margin: 0 auto 2rem auto;
+  max-width: 900px;
+  padding: 2rem 1.5rem;
+  text-align: left;
+}
+.wikipedia-glass-card:hover {
+  box-shadow: 0 12px 32px 0 rgba(9, 132, 227, 0.18);
+  transform: translateY(-4px) scale(1.02);
+}
+.wikipedia-header {
+  color: #0984e3;
+  font-family: 'Barlow', 'Rubik', 'Quicksand', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.wikipedia-link {
+  color: #636e72;
+  font-size: 1.1rem;
+  font-family: 'Quicksand', 'Rubik', sans-serif;
+  margin-bottom: 0.5rem;
+  word-break: break-all;
+}
+.wikipedia-description {
+  color: #222f3e;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  background: rgba(152, 214, 230, 0.10);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px 0 rgba(9, 132, 227, 0.05);
+}
+@media (max-width: 768px) {
+  .wikipedia-glass-card, .wikipedia-glass-form {
+    padding: 1rem 0.5rem;
+  }
+}
+</style>
+
+<div class="wikipedia-bg">
+  <section class="text-center container">
+    <h2 class="wikipedia-header mb-2">Search articles in Wikipedia</h2>
+    <p class="wikipedia-link mb-2">Just enter the search query to obtain the results</p>
+    <b class="wikipedia-link">Enter without any space</b>
+    <form class="wikipedia-glass-form mb-4" action="" method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+      <input class="btn btn-danger" type="submit" value="Submit">
+    </form>
+    {% if results%}
+    <div class="container">
+      <div class="wikipedia-glass-card">
+        <a href="{{link}}" class="p-0 m-0" target="_blank" style="text-decoration:none;">
+          <div>
+            <h2 class="wikipedia-header">{{title}}</h2>
+            <div class="wikipedia-link">{{link}}</div>
+          </div>
+        </a>
+        <hr class="p-0 m-0">
+        <div class="wikipedia-description mt-4">
+          {{summary}}
+        </div>
+        <hr>
+      </div>
+    </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock content %}

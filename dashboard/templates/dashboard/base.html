@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>Student-dashboard</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+<style>
+       body {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  color: #222f3e;
+}
+</style>
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg glass-navbar shadow-sm">
+    <div class="container-fluid" >
+      <a style="color: white;" class="navbar-brand font-weight-bold" href="#" style="font-family: 'Lobster', cursive; font-size: 2rem; letter-spacing: 1px;">
+        <i class="fas fa-graduation-cap text-info"></i> Scribora
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a style="color: white;" class="nav-link active" aria-current="page" href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a style="color: white;" class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a style="color: white;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-th-large"></i> Options
+            </a> 
+            <div class="dropdown-menu glass-dropdown" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'books' %}"><i class="fas fa-book"></i> Books</a>
+              <a class="dropdown-item" href="{% url 'wikipedia' %}"><i class="fab fa-wikipedia-w"></i> Wikipedia</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'dictionary' %}"><i class="fas fa-book-open"></i> Dictionary</a>
+              <a class="dropdown-item" href="{% url 'youtube' %}"><i class="fab fa-youtube"></i> Youtube</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="todo"><i class="fas fa-tasks"></i> To-do</a>
+              <a class="dropdown-item" href="homework"><i class="fas fa-pencil-alt"></i> Homework</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="notes"><i class="fas fa-sticky-note"></i> Notes</a>
+              <a class="dropdown-item" href="{% url 'conversion' %}"><i class="fas fa-calculator"></i> Conversion</a>
+              <div class="dropdown-divider"></div>
+            </div>
+          </li>
+          
+          
+          <form method="post" action="{% url 'logout' %}" class="form-inline">
+            {% csrf_token %}
+            <li class="nav-item">
+              <button type="submit" class="nav-link btn btn-link" style="color: white;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </li>
+          </form>
+          {% else %}
+          <li class="nav-item">
+            <a style="color: white;" class="nav-link" href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Register</a>
+          </li>
+          <li class="nav-item">
+            <a style="color: white;" class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="container mt-3">
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} glass-alert" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ message }}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% block content %}
+  {% endblock content %}
+</main>
+<footer  class="glass-footer mt-5">
+  <div class="container-fluid text-center py-4">
+    <span class="text-muted" style="font-family: 'Rubik', sans-serif;">&copy; {{ year|default:"2025" }} Scribora. All rights reserved.</span>
+  </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script>
+</body>
+</html>

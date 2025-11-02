@@ -1,0 +1,119 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+.conversion-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.conversion-glass-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(9, 132, 227, 0.10);
+  padding: 3.5rem 2.5rem;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+.conversion-math-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 2px 8px rgba(9, 132, 227, 0.10));
+}
+legend {
+  color: #0984e3;
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  background: transparent;
+}
+.btn-outline-info, .btn-primary {
+  background: linear-gradient(90deg, #0984e3 60%, #74b9ff 100%);
+  color: #fff !important;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 8px 0 rgba(9, 132, 227, 0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+  margin-bottom: 1rem;
+}
+.btn-outline-info:hover, .btn-primary:hover {
+  background: linear-gradient(90deg, #74b9ff 0%, #0984e3 100%);
+  color: #fff !important;
+  box-shadow: 0 4px 16px 0 rgba(9, 132, 227, 0.18);
+}
+.answer-box {
+  background: rgba(152, 214, 230, 0.12);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  color: #222f3e;
+  font-size: 1.15rem;
+  font-family: 'Quicksand', 'Rubik', sans-serif;
+  box-shadow: 0 2px 8px 0 rgba(9, 132, 227, 0.05);
+}
+@media (max-width: 900px) {
+  .conversion-glass-card {
+    max-width: 98vw;
+    padding: 2rem 0.5rem;
+  }
+  .conversion-math-icon {
+    width: 60px;
+    height: 60px;
+  }
+}
+</style>
+
+<div class="conversion-bg">
+  <div class="conversion-glass-card">
+    <!-- Math Icon (SVG for sharpness and no external dependency) -->
+    <img class="conversion-math-icon" src="https://img.icons8.com/color/96/000000/calculator.png" alt="Math Conversion Icon">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <legend class="border-bottom mb-4"></legend>
+        {{form|crispy}}
+        <button class="btn btn-outline-info" type="submit">
+          Select
+        </button>
+      </div>
+      {% if input %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4"></legend>
+        <div class="row">
+          <div class="col-md-4">
+          {{m_form.input|as_crispy_field}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+          {{m_form.measure1|as_crispy_field}}
+          </div>
+          <div class="col-md-4">
+          {{m_form.measure2|as_crispy_field}}
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="form-group answer-box">
+        {{answer}}
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">
+          Convert
+        </button>
+      </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock content %}

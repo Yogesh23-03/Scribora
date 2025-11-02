@@ -1,0 +1,136 @@
+{% extends 'dashboard/base.html' %} 
+{% load static %} 
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Study Partner Dashboard</title>
+  <style>
+    body {
+      
+    background: linear-gradient(135deg, #e0e7ff 0%, #f5f6fa 100%);
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    color: #222f3e;
+      margin: 0;
+      padding: 0;
+    }
+    .dashboard-container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #2d3436;
+      margin-bottom: 40px;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 16px rgba(44, 62, 80, 0.08);
+      text-align: center;
+      padding: 30px 20px;
+      transition: transform 0.18s, box-shadow 0.18s;
+      cursor: pointer;
+      text-decoration: none;
+      color: #222;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 24px rgba(44, 62, 80, 0.15);
+    }
+    .card img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 18px;
+    }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #0984e3;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>Welcome to Scribora your Study Partner</h1>
+    <div class="cards-grid">
+      <a href="notes" class="card">
+        <img src="https://img.icons8.com/color/96/000000/note.png" alt="Notes">
+        <div class="card-title">Notes
+            <div style="font-size:14px; color:black;">
+                Create Notes to refer them later. They are stored permanently until deleted
+            </div>
+        </div>
+        
+      </a>
+      <a href="{% url 'youtube' %}" class="card">
+        <img src="https://img.icons8.com/color/96/000000/youtube-play.png" alt="YouTube">
+        <div class="card-title">YouTube
+            <div style="font-size:14px; color:black;">
+                Search Youtube and select your desired video to play it on youtube
+            </div>
+        </div>
+      </a>
+      <a href="homework" class="card">
+        <img src="https://img.icons8.com/color/96/000000/homework.png" alt="Homework">
+        <div class="card-title">Homework
+            <div style="font-size:14px; color:black;">
+                Create Notes to refer them later. They are stored permanently until Add homeworks and assign them deadlines. They will be displayed prioritised by deadlines
+            </div>
+        </div>
+      </a>
+      <a href="todo" class="card">
+        <img src="https://img.icons8.com/color/96/000000/todo-list.png" alt="To-Do">
+        <div class="card-title">To-Do
+            <div style="font-size:14px; color:black;">
+               Add your to-do lists for your day and remove them as you finish
+            </div>
+        </div>
+      </a>
+      <a href="{% url 'books' %}" class="card">
+        <img src="https://img.icons8.com/color/96/000000/books.png" alt="Books">
+        <div class="card-title">Books
+            <div style="font-size:14px; color:black;">
+                 Browse books from a list of neatly organised book menu
+            </div>
+        </div>
+      </a>
+      <a href="{% url 'wikipedia' %}" class="card">
+        <img src="https://img.icons8.com/color/96/000000/wikipedia.png" alt="Wikipedia">
+        <div class="card-title">Wikipedia
+            <div style="font-size:14px; color:black;">
+                Homework and Assignments? Search wikipedia to get fast results
+            </div>
+        </div>
+      </a>
+      <a href="{% url 'dictionary' %}" class="card">
+        <img src="https://img.icons8.com/color/96/000000/book.png" alt="Dictionary">
+        <div class="card-title">Dictionary
+            <div style="font-size:14px; color:black;">
+                 A vocabulary from a book is troubling you? No problem, enter the word, and the meaning will be displayed
+            almost instantaneously.
+            </div>
+        </div>
+      </a>
+      <a href="{% url 'conversion' %}" class="card">
+        <img src="https://img.icons8.com/color/96/000000/calculator.png" alt="Mathematical Conversion">
+        <div class="card-title">Mathematical Conversion
+            <div style="font-size:14px; color:black;">
+                Check out the conversion table, that helps you to convert measurements to more familiar ones of your choice.
+            </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
+
+{% endblock content %}
