@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-y5gsa!u&nd_yd7=g#&7w3seb!lh*e^8x6ba$6#l%zcni+zw!8b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['scribora-8.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['scribora-9.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
